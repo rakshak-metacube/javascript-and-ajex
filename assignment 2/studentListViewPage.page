@@ -1,0 +1,35 @@
+<apex:page>
+
+        <apex:includeScript value="/soap/ajax/55.0/connection.js" />
+        <apex:includeScript value="/soap/ajax/55.0/apex.js" />
+        <button id="continueId">Continue</button>
+
+        <button id="cancelId">Cancel</button>
+
+        <script>
+
+                var a = document.getElementById('continueId');
+                console.log('a : ' + a);
+                if (a) {
+                        a.addEventListener('click', function (event) {
+                                sforce.connection.sessionId = "{!$Api.Session_ID}";
+                                var ids = '{!$CurrentPage.parameters.Id}';
+                                console.log('idsss : ' + ids + ' length : ' + ids.length);
+                                var myArrayId = ids.split(',');
+                                console.log('MY ARRAY IDS : ' + myArrayId + ' length : ' + myArrayId.length);
+                                var t = new sforce.SObject('Student__c');
+                                var result = sforce.connection.deleteIds(myArrayId);
+                                console.log(result);
+                                window.open('https://mindful-wolf-92yx6p-dev-ed.my.salesforce.com/a07?fcf=00B5h00000MDCXF');
+
+                        })
+                }
+                var b = document.getElementById('cancelId');
+                console.log('b : ' + b);
+                if (b) {
+                        b.addEventListener('click', function (event) {
+                                window.open('https://mindful-wolf-92yx6p-dev-ed.my.salesforce.com/a07?fcf=00B5h00000MDCXF');
+                        })
+                }
+        </script>
+</apex:page>
